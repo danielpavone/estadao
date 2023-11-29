@@ -1,7 +1,7 @@
 import NewsRepository from "../repository/NewsRepository";
 import News from "../../domain/News";
 
-export default class Signup {
+export default class CreateNews {
   constructor(readonly newsRepository: NewsRepository) {
   }
 
