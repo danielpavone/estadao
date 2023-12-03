@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  app:
+    container_name: backend
+    build: .
+    command: pnpm start
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/usr/app
+    depends_on:
+      - database_production
+      - database_development
+  database_production:
+    container_name: postgres-production
+    image: postgres:16-alpine
+    ports:
+      - 5432:5432
+    volumes:
+      - ~/app/postgres:/var/lib/postgres/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=estadao
+  database_development:
+    container_name: postgres-development
+    image: postgres:16-alpine
+    ports:
+      - 5433:5432
+    volumes:
+      - ~/app/postgres:/var/lib/postgres/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=estadao_dev
