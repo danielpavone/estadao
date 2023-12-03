@@ -6,20 +6,24 @@ export default class NewsRepositoryDatabase implements NewsRepository {
   constructor(readonly connection: Connection) { }
 
   async save(news: News) {
-    await this.connection.query("insert into estadao.news (news_id, title, body, active, date) values ($1, $2, $3, $4, $5)", [news.newsId, news.getTitle(), news.getBody(), news.isActive(), news.date]);
+    await this.connection.query("insert into news (news_id, title, content, active, date) values ($1, $2, $3, $4, $5)", [news.newsId, news.getTitle(), news.getContent(), news.isActive(), news.date]);
+  }
+
+  async list() {
+    return await this.connection.query("select * from news where active = true", []);
   }
 
   async update(news: News) {
-    await this.connection.query("update estadao.news set title = $1, body = $2, active = $3 where news_id = $4", [news.getTitle(), news.getBody(), news.isActive(), news.newsId]);
+    await this.connection.query("update news set title = $1, content = $2, active = $3 where news_id = $4", [news.getTitle(), news.getContent(), news.isActive(), news.newsId]);
   }
 
   async getById(newsId: string) {
-    const [newsData] = await this.connection.query("select * from estadao.news where news_id = $1", [newsId]);
+    const [newsData] = await this.connection.query("select * from news where news_id = $1", [newsId]);
     if (!newsData) return;
-    return News.restore(newsData.news_id, newsData.title, newsData.body, newsData.active, newsData.date);
+    return News.restore(newsData.news_id, newsData.title, newsData.content, newsData.active, newsData.date);
   }
 
   async delete(newsId: string) {
-    await this.connection.query("delete from estadao.news where news_id = $1", [newsId]);
+    await this.connection.query("delete from news where news_id = $1", [newsId]);
   }
 }
