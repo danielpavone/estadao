@@ -2,42 +2,44 @@ export default class News {
   private constructor(
     readonly newsId: string,
     private title: string,
-    private body: string,
+    private content: string,
     private active: boolean,
     readonly date: Date
   ) {
   }
 
-  static create(title: string, body: string, date: Date) {
+  static create(title: string, content: string, date: Date) {
     if (!title) throw new Error("Invalid title");
-    if (!body) throw new Error("Invalid body");
+    if (!content) throw new Error("Invalid content");
     const newsId = crypto.randomUUID();
     const active = true;
-    return new News(newsId, title, body, active, date);
+    return new News(newsId, title, content, active, date);
   }
 
-  static restore(newsId: string, title: string, body: string, active: boolean, date: Date) {
-    return new News(newsId, title, body, active, date);
+  static restore(newsId: string, title: string, content: string, active: boolean, date: Date) {
+    if (!title) throw new Error("Invalid title");
+    if (!content) throw new Error("Invalid content");
+    return new News(newsId, title, content, active, date);
   }
 
   updateTitle(title: string) {
     this.title = title;
   }
 
-  updateBody(body: string) {
-    this.body = body;
+  updateContent(content: string) {
+    this.content = content;
   }
 
-  disableNews() {
-    this.active = false;
+  updateActive(active: boolean) {
+    this.active = active;
   }
 
   getTitle() {
     return this.title;
   }
 
-  getBody() {
-    return this.body
+  getContent() {
+    return this.content
   }
 
   isActive() {
