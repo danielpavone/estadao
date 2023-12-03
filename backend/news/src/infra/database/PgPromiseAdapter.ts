@@ -3,9 +3,11 @@ import Connection from "./Connection";
 
 export default class PgPromiseAdapter implements Connection {
   connection: any;
+  private databaseName: any;
 
   constructor() {
-    this.connection = pgp()("postgres://postgres:postgres@localhost:5432/estadao");
+    this.databaseName = process.env.NODE_ENV === "production" ? "estadao" : "estadao_dev";
+    this.connection = pgp()(`postgres://postgres:postgres@database_${process.env.NODE_ENV}:5432/${this.databaseName}`)
   }
 
   query(statement: string, data: any): Promise<any> {
