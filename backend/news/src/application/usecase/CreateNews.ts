@@ -6,7 +6,7 @@ export default class CreateNews {
   }
 
   async execute(input: Input) {
-    const news = News.create(input.title, input.body, input.date);
+    const news = News.create(input.title, input.content, input.date);
     await this.newsRepository.save(news);
     return {
       newsId: news.newsId
@@ -16,6 +16,6 @@ export default class CreateNews {
 
 type Input = {
   title: string,
-  body: string,
+  content: string,
   date: Date,
 }

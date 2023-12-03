@@ -6,11 +6,11 @@ export default class GetNews {
 
   async execute(newsId: string): Promise<Output> {
     const news = await this.newsRepository.getById(newsId);
-    if (!news) throw new Error("Not found");
+    if (!news) throw new Error("Resource not found");
     return {
       newsId: news.newsId,
       title: news.getTitle(),
-      body: news.getBody(),
+      content: news.getContent(),
       active: news.isActive(),
       date: news.date,
     }
@@ -20,7 +20,7 @@ export default class GetNews {
 type Output = {
   newsId: string,
   title: string,
-  body: string,
+  content: string,
   active: boolean,
   date: Date,
 }

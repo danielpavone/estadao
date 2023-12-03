@@ -7,15 +7,18 @@ export default class UpdateNews {
 
   async execute(input: Input) {
     const news = await this.newsRepository.getById(input.newsId)
-    news?.updateTitle(input.title);
-    news?.updateBody(input.body);
-    await this.newsRepository.update(news as News);
+    if (!news) throw new Error('Resource not found');
+    news.updateTitle(input.title);
+    news.updateContent(input.content);
+    news.updateActive(input.active);
+    const updatedNews = News.restore(news.newsId, news.getTitle(), news.getContent(), news.isActive(), news.date)
+    await this.newsRepository.update(updatedNews);
     return {
-      newsId: news?.newsId,
-      title: news?.getTitle(),
-      body: news?.getBody(),
-      active: news?.isActive(),
-      date: news?.date,
+      newsId: news.newsId,
+      title: news.getTitle(),
+      content: news.getContent(),
+      active: news.isActive(),
+      date: news.date,
     }
   }
 }
@@ -23,7 +26,7 @@ export default class UpdateNews {
 type Input = {
   newsId: string,
   title: string,
-  body: string,
+  content: string,
   active: boolean,
   date: Date,
 }
