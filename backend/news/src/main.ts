@@ -6,13 +6,15 @@ import CreateNews from "./application/usecase/CreateNews";
 import GetNews from "./application/usecase/GetNews";
 import UpdateNews from "./application/usecase/UpdateNews";
 import DeleteNews from "./application/usecase/DeleteNews";
+import GetAllActiveNews from "./application/usecase/GetAllActiveNews";
 
 const connection = new PgPromiseAdapter();
 const newsRepository = new NewsRepositoryDatabase(connection);
 const createNews = new CreateNews(newsRepository);
+const getAllActiveNews = new GetAllActiveNews(newsRepository);
 const getNews = new GetNews(newsRepository);
 const updateNews = new UpdateNews(newsRepository);
 const deleteNews = new DeleteNews(newsRepository);
 const httpServer = new ExpressAdapter();
-new MainController(httpServer, createNews, getNews, updateNews, deleteNews);
+new MainController(httpServer, createNews, getAllActiveNews, getNews, updateNews, deleteNews);
 httpServer.listen(3000);
