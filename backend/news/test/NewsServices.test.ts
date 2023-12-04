@@ -83,6 +83,24 @@ test("should create a news and update", async function () {
   expect(getUpdatedNews.active).toBeTruthy();
 });
 
+test("should create a news and update only title", async function () {
+  const input: any = {
+    title: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
+    content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. In mollis nunc sed id semper. Quam nulla porttitor massa id neque. Sapien pellentesque habitant morbi tristique senectus et netus et malesuada. Diam ut venenatis tellus in metus vulputate eu scelerisque.",
+    date: new Date()
+  }
+  const output = await createNews.execute(input);
+  const savedNews = await getNews.execute(output.newsId);
+  const updatedInput = {
+    newsId: savedNews.newsId,
+    title: 'Lorem Ipsum',
+  }
+  await updateNews.execute(updatedInput);
+  const getUpdatedNews = await getNews.execute(output.newsId);
+  expect(getUpdatedNews.title).toBe('Lorem Ipsum');
+
+});
+
 test("should throw an error with invalid newsId", async function () {
   await expect(() => getNews.execute(crypto.randomUUID())).rejects.toThrow(new Error("Resource not found"));
 });
