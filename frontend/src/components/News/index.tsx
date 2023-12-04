@@ -3,7 +3,7 @@ import parse from 'html-react-parser'
 import { ArrowArcLeft } from 'phosphor-react'
 import { Content, Title, Nav } from './styles'
 
-export default function News ({ news }) {
+export default function News ({ news }: any) {
   return (
     <>
       <Title>{news?.title}</Title>
