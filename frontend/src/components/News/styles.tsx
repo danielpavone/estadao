@@ -3,6 +3,7 @@ import { styled } from 'styled-components'
 export const Title = styled.h2`
   color: ${(props) => props.theme['green-700']};
   margin-top: 3rem;
+  margin-bottom: 1rem;
 `
 
 export const Content = styled.div`

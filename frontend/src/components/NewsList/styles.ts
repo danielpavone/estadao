@@ -13,6 +13,7 @@ display: flex;
   text-align: justify;
   flex-direction: column;
   justify-content: space-between;
+  margin-bottom: 3rem;
   a {
     color: ${(props) => props.theme['green-700']};
     font-weight: bold;
@@ -28,6 +29,7 @@ display: flex;
 
   @media (max-width: 768px) {
     width: 100%;
+    margin-bottom: 2rem;
   }
 `
 
