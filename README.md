@@ -35,8 +35,8 @@ O docker irá orquestrar a inicialização da nossa aplicação, que estará dis
 GET (http://localhost:3000/news) - Listar todas as news
 POST (http://localhost:3000/news) - Criar uma nova news
 GET (http://localhost:3000/news/ID) - Listar uma news pelo ID
-PUT (http://localhost:3000/news) - Atualizar a news
-DELETE (http://localhost:3000/news) - Remover a news
+PATCH (http://localhost:3000/news/ID) - Atualizar a news
+DELETE (http://localhost:3000/news/ID) - Remover a news
 ```
 
 4. Abra uma nova aba do terminal e navegue até a pasta do projeto

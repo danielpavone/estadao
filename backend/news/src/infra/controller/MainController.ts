@@ -34,8 +34,9 @@ export default class MainController {
       }
     });
 
-    httpServer.on("put", "/news", async function (params: any, body: any) {
+    httpServer.on("patch", "/news/:newsId", async function (params: any, body: any) {
       try {
+        body.newsId = params.newsId;
         const output = await updateNews.execute(body);
         return output;
       } catch (err: any) {
@@ -43,9 +44,9 @@ export default class MainController {
       }
     });
 
-    httpServer.on("delete", "/news", async function (params: any, body: any) {
+    httpServer.on("delete", "/news/:newsId", async function (params: any, body: any) {
       try {
-        const output = await deleteNews.execute(body);
+        const output = await deleteNews.execute(params.newsId);
         return output;
       } catch (err: any) {
         return { error: err.message }

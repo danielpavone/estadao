@@ -112,7 +112,7 @@ test("should create and delete a news", async function () {
     date: new Date()
   }
   const output = await createNews.execute(input);
-  await deleteNews.execute(output);
+  await deleteNews.execute(output.newsId);
   await expect(() => getNews.execute(output.newsId)).rejects.toThrow(new Error("Resource not found"));
 });
 

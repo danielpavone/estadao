@@ -4,11 +4,7 @@ export default class DeleteNews {
   constructor(readonly newsRepository: NewsRepository) {
   }
 
-  async execute(input: Input) {
-    await this.newsRepository.delete(input.newsId);
+  async execute(newsId: string) {
+    await this.newsRepository.delete(newsId);
   }
-}
-
-type Input = {
-  newsId: string,
 }
