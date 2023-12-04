@@ -10,7 +10,7 @@ export default class NewsRepositoryDatabase implements NewsRepository {
   }
 
   async list() {
-    return await this.connection.query("select * from news where active = true", []);
+    return await this.connection.query("select * from news where active = true order by date desc", []);
   }
 
   async update(news: News) {
